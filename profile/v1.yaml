@@ -1,0 +1,42 @@
+credentials:
+  access_token: <your-access-token>
+  access_token_secret: <your-access-token-secret>
+  service_principal_id: <your-service-principal-id>
+  service_principal_key_kid: <your-service-principal-kid>
+  private_key: '-----BEGIN RSA PRIVATE KEY-----...'
+  private_key_path: /path/to/key
+endpoints:
+  iam: http://localhost:18087
+cli:
+  argument_match_mode: exact
+  default_output_type: table
+  default_query_driver: jq
+  no_color: true
+  process_timeout_sec: 7200
+go:
+  api_root_url: https://secure.sakura.ad.jp/cloud/zone
+  accept_language: en-US,en;q=0.9
+  default_zone: is1a
+  fake_mode: false
+  fake_store_path: ~/.usacloud/fake_store.json
+  http_request_rate_limit: 5
+  http_request_timeout: 300
+  retry_max: 0
+  retry_wait_max: 64
+  retry_wait_min: 1
+  state_polling_interval: 0
+  state_polling_timeout: 0
+  trace_mode: HTTP
+  zone: is1a
+  zones:
+    - is1a
+    - is1b
+    - tk1a
+    - tk1b
+    - tk1v
+java:
+  str_field: foobar
+  num_field: 123
+dotnet:
+  str_field: foobar
+  num_field: 123
