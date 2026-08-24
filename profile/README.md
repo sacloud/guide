@@ -74,7 +74,7 @@ credentials:
   private_key_path: /path/to/key
 ```
 
-| パラメータ名 | 旧パラメータ名 | 型 | 内容 |
+| パラメータ名 | v0でのパラメータ名 | 型 | 内容 |
 | --- | --- | --- | --- |
 | access_token | AccessToken | string | アクセスキー方式のアクセストークン |
 | access_token_secret | AccessTokenSecret | string | アクセスキー方式のシークレット |
@@ -97,24 +97,24 @@ endpoints:
 
 | パラメータ名 | 型 | 内容 |
 | --- | --- | --- |
-| addon | string | Addon APIのエンドポイントURL |
+| addon | string | Add-on APIのエンドポイントURL |
 | apigw | string | API Gateway APIのエンドポイントURL |
-| apprun_shared | string | AppRun Shared APIのエンドポイントURL |
-| apprun_dedicated | string | AppRun Dedicated APIのエンドポイントURL |
+| apprun_shared | string | AppRun共用型 APIのエンドポイントURL |
+| apprun_dedicated | string | AppRun専有型 APIのエンドポイントURL |
 | cloudhsm | string | CloudHSM APIのエンドポイントURL |
-| dedicated_storage | string | Dedicated Storage APIのエンドポイントURL |
+| dedicated_storage | string | 専有Storage APIのエンドポイントURL |
 | eventbus | string | EventBus APIのエンドポイントURL |
 | iam | string | IAM APIのエンドポイントURL |
 | kms | string | KMS APIのエンドポイントURL |
-| monitoring_suite | string | Monitoring Suite APIのエンドポイントURL |
+| monitoring_suite | string | モニタリングスイート APIのエンドポイントURL |
 | nosql | string | NoSQL APIのエンドポイントURL |
-| object_storage | string | Object Storage APIのエンドポイントURL |
+| object_storage | string | オブジェクトストレージ APIのエンドポイントURL |
 | secretmanager | string | SecretManager APIのエンドポイントURL |
-| security_control | string | Security Control APIのエンドポイントURL |
-| simple_notification | string | Simple Notification APIのエンドポイントURL |
-| simple_mq_queue | string | Simple MQ Queue APIのエンドポイントURL |
-| simple_mq_message | string | Simple MQ Message APIのエンドポイントURL |
-| webaccel | string | WebAccel APIのエンドポイントURL |
+| security_control | string | セキュリティコントロール APIのエンドポイントURL |
+| simple_notification | string | シンプル通知 APIのエンドポイントURL |
+| simple_mq_queue | string | シンプルMQキュー APIのエンドポイントURL |
+| simple_mq_message | string | シンプルMQメッセージ APIのエンドポイントURL |
+| webaccel | string | ウェブアクセル APIのエンドポイントURL |
 | workflows | string | Workflows APIのエンドポイントURL |
 
 新規サービスが増えるたびに追加されます。
@@ -134,7 +134,7 @@ cli:
   process_timeout_sec: 7200
 ```
 
-| パラメータ名 | 旧パラメータ名 | 型 | 内容 |
+| パラメータ名 | v0でのパラメータ名 | 型 | 内容 |
 | --- | --- | --- | --- |
 | argument_match_mode | ArgumentMatchMode | string | 操作対象リソースを引数で指定するコマンドでのリソース名と引数の比較方法(partial(部分一致)/exact(完全一致)) |
 | default_output_type | DefaultOutputType | string | 既定の出力形式(table/json/yaml) |
@@ -144,65 +144,11 @@ cli:
 
 - Go
 
-さくらのツール群はGoで書かれているものが多く、terraform/CLI/SDKは `sacloud-sdk-go/common/saclient` に依存しているため、saclient向けの設定は `go` セクションで設定します。
-
-```yaml
-# terraform/CLI/Go SDKで利用する
-go:
-  api_root_url: https://secure.sakura.ad.jp/cloud/zone
-  accept_language: en-US,en;q=0.9
-  default_zone: is1a
-  fake_mode: false
-  fake_store_path: ~/.usacloud/fake_store.json
-  http_request_rate_limit: 5
-  http_request_timeout: 300
-  retry_max: 0
-  retry_wait_max: 64
-  retry_wait_min: 1
-  state_polling_interval: 0
-  state_polling_timeout: 0
-  trace_mode: HTTP
-  zone: is1a
-  zones:
-    - is1a
-    - is1b
-    - tk1a
-    - tk1b
-    - tk1v
-```
-
-| パラメータ名 | 旧パラメータ名 | 型 | 内容 |
-| --- | --- | --- | --- |
-| api_root_url | APIRootURL | string | さくらのクラウドAPIのルートURL |
-| accept_language | AcceptLanguage | string | APIリクエスト時のAccept-Language |
-| default_zone | DefaultZone | string | グローバルリソースAPIを呼ぶ際に指定するゾーン |
-| fake_mode | FakeMode | bool | フェイクモード有効化フラグ |
-| fake_store_path | FakeStorePath | string | フェイクストアの保存先パス |
-| http_request_rate_limit | HTTPRequestRateLimit | int | APIリクエストのレート上限 |
-| http_request_timeout | HTTPRequestTimeout | int | HTTPリクエストのタイムアウト秒 |
-| retry_max | RetryMax | int | 423/503を受け取った時のリトライ最大回数 |
-| retry_wait_max | RetryWaitMax | int | 423/503を受け取った時のリトライ待機の最大秒数 |
-| retry_wait_min | RetryWaitMin | int | 423/503を受け取った時のリトライ待機の最小秒数 |
-| state_polling_interval | StatePollingInterval | int | 状態監視ポーリング間隔 |
-| state_polling_timeout | StatePollingTimeout | int | 状態監視のタイムアウト |
-| trace_mode | TraceMode | string | トレース出力モード |
-| zone | Zone | string | 操作対象ゾーン |
-| zones | Zones | array of string | 利用可能ゾーン一覧 |
+さくらのツール群はGoで書かれおり、扱えるパラメータは [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go) に依存しているため、そちらのドキュメントを参考にしてください。
 
 - Java / .NET / etc...
 
-他の言語で実装されているSDK等に対しては、Goと同じくそれぞれの言語のセクションにパラメータを書きます(Javaであれば`java`、.NETであれば`dotnet`等)。これらはその言語以外では無視されます。
-
-```yaml
-java:
-  # ...
-dotnet:
-  # ...
-```
-
-| パラメータ名 | 型 | 内容 |
-| --- | --- | --- |
-| foobar | string | (各実装依存) |
+他の言語で実装されているSDK等に対しては、Goと同じくそれぞれのセクションにパラメータを書きます。どのようなパラメータがサポートされているかは各SDKを参照してください。
 
 ### パラメータの省略と優先度
 
