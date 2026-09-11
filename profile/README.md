@@ -112,8 +112,8 @@ endpoints:
 | secretmanager | string | SecretManager APIのエンドポイントURL |
 | security_control | string | セキュリティコントロール APIのエンドポイントURL |
 | simple_notification | string | シンプル通知 APIのエンドポイントURL |
-| simple_mq_queue | string | シンプルMQキュー APIのエンドポイントURL |
-| simple_mq_message | string | シンプルMQメッセージ APIのエンドポイントURL |
+| simple_mq_queue | string | シンプルMQ さくらのクラウド APIのエンドポイントURL |
+| simple_mq_message | string | シンプルMQ APIのエンドポイントURL |
 | webaccel | string | ウェブアクセル APIのエンドポイントURL |
 | workflows | string | Workflows APIのエンドポイントURL |
 
@@ -144,7 +144,7 @@ cli:
 
 - Go
 
-さくらのツール群はGoで書かれおり、扱えるパラメータは [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go) に依存しているため、そちらのドキュメントを参考にしてください。
+さくらのツール群はGoで書かれており、扱えるパラメータは [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go) に依存しているため、そちらのドキュメントを参考にしてください。
 
 - Java / .NET / etc...
 
