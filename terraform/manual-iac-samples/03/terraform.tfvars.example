@@ -1,0 +1,117 @@
+# 基本設定
+prefix = "example-06"
+zone = "is1c"  # ゾーン: is1a, is1b, is1c, tk1a, tk1b, tk1v
+server_password = "YourSecurePassword123!"
+
+# Webサーバー設定
+web_server_count = 1      # サーバー台数: 1-10
+web_server_os_type = "rockylinux" # OS: ubuntu, debian, almalinux, rockylinux
+web_server_core = 2       # CPUコア数: 1, 2, 4, 8, 16, 32
+web_server_memory = 6     # メモリ(GB): 1, 2, 4, 6, 8, 16, 32, 64, 128
+web_server_disk_size = 100      # ディスク容量(GB): 20-4000
+web_server_disk_plan = "ssd"    # ディスクプラン: ssd, hdd
+
+# ネットワーク設定
+private_network_cidr = "192.168.1.0/24"  # プライベートネットワークCIDR
+vpn_ip_range_start = 240  # VPN IPレンジ開始: 100-250
+vpn_ip_range_end = 249    # VPN IPレンジ終了: 100-254
+
+# データベース設定
+db_username = "dbuser"
+db_password = "DatabaseSecurePassword456!"
+db_plan = "10g"          # プラン: 10g, 30g, 90g, 240g, 500g, 1t
+db_backup_time = "00:00" # バックアップ時刻 (HH:MM)
+
+# VPN設定
+vpn_pre_shared_secret = "YourVPNSecret789"
+vpn_username = "vpnuser"
+vpn_password = "VPNSecurePassword12!"
+
+# セキュリティ設定
+admin_source_networks = ["0.0.0.0/0"]  # 管理者アクセス許可ネットワークリスト
+vpn_router_plan = "standard"           # VPNルータープラン: standard, premium, highspec
+
+# WireGuard VPN設定
+wireguard_enabled = true
+wireguard_port = 51820
+wireguard_server_private_key = "YOUR_SERVER_PRIVATE_KEY_HERE"
+wireguard_server_ip = "192.168.100.1/24"
+wireguard_peers = [
+  {
+    name       = "client1"
+    public_key = "CLIENT1_PUBLIC_KEY_HERE"
+    ip_address = "192.168.100.2"
+  }
+  # {
+  #   name       = "client2"
+  #   public_key = "CLIENT2_PUBLIC_KEY_HERE"
+  #   ip_address = "192.168.100.3/32"
+  # }
+]
+
+# 設定例:
+
+# 小規模構成
+# web_server_count = 1
+# web_server_core = 2
+# web_server_memory = 4
+# db_plan = "10g"
+# vpn_router_plan = "standard"
+
+# 中規模構成
+# web_server_count = 3
+# web_server_os_type = "ubuntu"
+# web_server_core = 4
+# web_server_memory = 8
+# web_server_disk_size = 200
+# db_plan = "90g"
+# vpn_router_plan = "premium"
+# private_network_cidr = "10.0.1.0/24"
+
+# 大規模構成
+# web_server_count = 5
+# web_server_os_type = "ubuntu"
+# web_server_core = 8
+# web_server_memory = 16
+# web_server_disk_size = 500
+# db_plan = "500g"
+# vpn_router_plan = "highspec"
+# private_network_cidr = "172.16.0.0/24"
+# vpn_ip_range_start = 200
+# vpn_ip_range_end = 210
+
+# 開発・テスト環境
+# web_server_count = 2
+# web_server_os_type = "debian"
+# web_server_core = 1
+# web_server_memory = 2
+# web_server_disk_size = 50
+# web_server_disk_plan = "hdd"
+# db_plan = "10g"
+# admin_source_network = "203.0.113.0/24"  # 特定ネットワークからのみ管理アクセス
+
+# セキュリティ強化構成
+# admin_source_networks = ["203.0.113.100/32", "198.51.100.0/24"]  # 特定IP/ネットワークからのみアクセス
+# vpc_router_plan = "highspec"
+# db_plan = "240g"
+# private_network_cidr = "10.10.0.0/24"
+# wireguard_port = 443  # HTTPSポートに偽装
+
+# WireGuardキー生成コマンド例:
+# サーバー秘密鍵: wg genkey
+# サーバー公開鍵: echo "SERVER_PRIVATE_KEY" | wg pubkey
+# クライアント秘密鍵: wg genkey
+# クライアント公開鍵: echo "CLIENT_PRIVATE_KEY" | wg pubkey
+
+# データベースプラン仕様:
+# 10g:   10GB   - 月額  1,650円
+# 30g:   30GB   - 月額  3,300円
+# 90g:   90GB   - 月額  9,900円
+# 240g: 240GB   - 月額 24,200円
+# 500g: 500GB   - 月額 49,500円
+# 1t:     1TB   - 月額 99,000円
+
+# VPNルータープラン仕様:
+# standard: 標準プラン  - 月額  1,100円
+# premium:  高性能プラン - 月額  3,300円
+# highspec: 最高性能プラン - 月額 11,000円

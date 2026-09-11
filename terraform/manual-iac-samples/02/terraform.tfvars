@@ -1,0 +1,109 @@
+# 基本設定
+prefix          = "example-03"
+zone            = "is1c" # ゾーン: is1a, is1b, is1c, tk1a, tk1b, tk1v
+server_password = "YourSecurePassword123"
+api_key_id      = "113702114593" # Must be numeric - replace with actual API key ID
+
+# オートスケール設定
+min_size     = 2 # 最小サーバー数
+change_count = 1 # スケール時の増減数
+
+# スケーリング閾値設定
+cpu_threshold_scaling = true # CPU閾値スケーリング有効
+cpu_threshold_up      = 80   # スケールアップ CPU閾値 (%)
+cpu_threshold_down    = 20   # スケールダウン CPU閾値 (%)
+
+router_threshold_scaling = false # ルータ閾値スケーリング有効
+router_threshold_up      = 100   # スケールアップ ルータ閾値 (Mbps)
+router_threshold_down    = 10    # スケールダウン ルータ閾値 (Mbps)
+
+# スケジュールスケーリング設定
+scale_up_hour     = 8  # スケールアップ時刻 (時)
+scale_up_minute   = 0  # スケールアップ時刻 (分)
+scale_down_hour   = 18 # スケールダウン時刻 (時)
+scale_down_minute = 0  # スケールダウン時刻 (分)
+
+# サーバースペック設定
+server_core      = 2     # CPUコア数: 1, 2, 4, 8, 16, 32
+server_memory    = 2     # メモリ容量(GB): 1, 2, 4, 8, 16, 32, 64, 128
+server_disk_size = 100   # ディスク容量(GB): 20-4000
+server_disk_plan = "ssd" # ディスクプラン: ssd, hdd
+
+# 初期サーバー設定（必須 - どちらか一方を指定）
+initial_server_disk_id    = "" # 初期サーバー用既存ディスクID
+initial_server_archive_id = "" # 初期サーバー用OS/アーカイブID
+
+# オートスケールクローン設定（オプション - 未指定時は初期サーバーのディスクを使用）
+clone_source_disk_id    = "" # オートスケール用元ディスクID
+clone_source_archive_id = "" # オートスケール用元アーカイブID
+
+# エンハンスドロードバランサー設定
+elb_plan         = "standard" # ELBプラン: standard, highspec
+elb_vip_port     = 80         # 仮想IPポート: 1-65535
+elb_delay_loop   = 10         # ヘルスチェック間隔(秒): 5-300
+elb_sorry_server = ""         # ソーリーサーバーIP（オプション）
+
+# リアルサーバー設定
+elb_real_servers = [
+  {
+    ip_address = "192.168.1.11"
+    port       = 80
+    weight     = 100
+    enabled    = true
+  },
+  {
+    ip_address = "192.168.1.12"
+    port       = 80
+    weight     = 100
+    enabled    = true
+  }
+]
+
+# 設定例:
+# 高性能構成
+# server_core = 8          # 8コア
+# server_memory = 16       # 16GB RAM
+# server_disk_size = 500   # 500GB SSD
+# elb_plan = "highspec"    # 高性能ELB
+
+# Windows Server構成例
+# clone_source_archive_id = "archive-windows-xxxxxxxx"  # Windows Serverアーカイブ
+# server_core = 4
+# server_memory = 8
+
+# Ubuntu構成例（初期サーバー）
+# initial_server_archive_id = "archive-ubuntu-xxxxxxxx" # Ubuntuアーカイブ
+# server_core = 2
+# server_memory = 4
+
+# 既存ディスククローン例（初期サーバー）
+# initial_server_disk_id = "disk-xxxxxxxx"  # 設定済みディスク
+# server_core = 4
+# server_memory = 8
+
+# カスタムオートスケール例（初期サーバーと異なるディスクを使用）
+# clone_source_archive_id = "archive-custom-xxxxxxxx"  # オートスケール専用アーカイブ
+# clone_source_disk_id = "disk-custom-xxxxxxxx"        # オートスケール専用ディスク
+
+# カスタムリアルサーバー構成
+# elb_real_servers = [
+#   {
+#     ip_address = "10.0.1.10"
+#     port       = 8080
+#     weight     = 150
+#     enabled    = true
+#   },
+#   {
+#     ip_address = "10.0.1.11"
+#     port       = 8080
+#     weight     = 100
+#     enabled    = true
+#   },
+#   {
+#     ip_address = "10.0.1.12"
+#     port       = 8080
+#     weight     = 50
+#     enabled    = false
+#   }
+# ]
+

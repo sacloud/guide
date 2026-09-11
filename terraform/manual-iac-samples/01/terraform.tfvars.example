@@ -1,0 +1,81 @@
+# 基本設定
+prefix          = "example-02"
+server_password = "YourSecurePassword123!"
+domain_name     = "example.com"
+
+# リージョン設定
+primary_region   = "is1c"  # プライマリリージョン: is1a, is1b, is1c, tk1a, tk1b, tk1v
+secondary_region = "tk1b"  # セカンダリリージョン: is1a, is1b, is1c, tk1a, tk1b, tk1v
+
+# データベース設定
+db_username = "dbuser"
+db_password = "DatabasePassword123!"
+db_plan = "90g"           # データベースプラン: 10g, 30g, 90g, 240g, 500g, 1t
+db_backup_time = "02:00"  # バックアップ時刻 (HH:MM形式)
+
+# サーバースペック設定
+server_core = 2          # CPUコア数: 1, 2, 4, 8, 16, 32
+server_memory = 2        # メモリ容量(GB): 1, 2, 4, 8, 16, 32, 64, 128
+server_disk_size = 100   # ディスク容量(GB): 20-4000
+server_disk_plan = "ssd" # ディスクプラン: ssd, hdd
+
+# オペレーティングシステム選択
+os_type = "rockylinux"       # OS種別: ubuntu, debian, rockylinux, almalinux, miraclelinux, windows2019, windows2022, windows2025
+# archive_ostype = ""        # オプション: 特定のOSバージョン指定
+# archive_name_filter = ""   # オプション: アーカイブ名フィルタ
+
+# ネットワーク設定
+primary_subnet_cidr   = "192.168.0.0/24"  # プライマリリージョンのサブネット
+secondary_subnet_cidr = "192.168.1.0/24"  # セカンダリリージョンのサブネット
+
+# リージョン設定例:
+# プライマリ・セカンダリリージョン組み合わせ例:
+
+# 石狩 - 東京間 (推奨)
+# primary_region = "is1a"   # 石狩第1ゾーン
+# secondary_region = "tk1a" # 東京第1ゾーン（デフォルト）
+
+# 東京 - 石狩間 (推奨)
+# primary_region = "tk1a"   # 東京第1ゾーン
+# secondary_region = "is1a" # 石狩第1ゾーン
+
+# 同一リージョン内冗長化
+# primary_region = "is1a"   # 石狩第1ゾーン
+# secondary_region = "is1b" # 石狩第2ゾーン
+
+# primary_region = "tk1a"   # 東京第1ゾーン
+# secondary_region = "tk1b" # 東京第2ゾーン
+
+# primary_region = "tk1a"   # 東京第1ゾーン
+# secondary_region = "tk1v" # 東京第3ゾーン
+
+# スペック設定例:
+# 高性能サーバー構成
+# server_core = 8          # 8コア
+# server_memory = 16       # 16GB RAM
+# server_disk_size = 500   # 500GB SSD
+# server_disk_plan = "ssd"
+
+# 大容量データベース構成
+# db_plan = "1t"           # 1TB データベース
+# db_backup_time = "01:00" # 深夜1時バックアップ
+
+# ネットワーク設定例:
+# primary_subnet_cidr = "10.0.1.0/24"    # プライマリリージョン
+# secondary_subnet_cidr = "10.0.2.0/24"  # セカンダリリージョン
+
+# primary_subnet_cidr = "172.16.0.0/24"    # プライマリリージョン
+# secondary_subnet_cidr = "172.16.1.0/24"  # セカンダリリージョン
+
+# OS選択例:
+# Linux distributions:
+# os_type = "rockylinux"  # Rocky Linux (デフォルト)
+# os_type = "ubuntu"      # Ubuntu
+# os_type = "debian"      # Debian
+# os_type = "almalinux"   # AlmaLinux
+
+# Windows Server:
+# os_type = "windows2019" # Windows Server 2019
+# os_type = "windows2022" # Windows Server 2022
+# os_type = "windows2025" # Windows Server 2025
+
