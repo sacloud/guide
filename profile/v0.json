@@ -1,0 +1,30 @@
+{
+  "APIRootURL": "https://secure.sakura.ad.jp/cloud/zone",
+  "AcceptLanguage": "en-US,en;q=0.9",
+  "AccessToken": "<your-access-token>",
+  "AccessTokenSecret": "<your-access-secret>",
+  "ServicePrincipalID": "<your-service-principal-id>",
+  "ServicePrincipalKeyID": "<your-service-principal-key-kid>",
+  "PrivateKeyPEMPath": "/path/to/cert.key",
+  "ArgumentMatchMode": "exact",
+  "DefaultOutputType": "table",
+  "DefaultQueryDriver": "jq",
+  "DefaultZone": "is1a",
+  "FakeMode": false,
+  "FakeStorePath": "~/.usacloud/fake_store.json",
+  "HTTPRequestRateLimit": 5,
+  "HTTPRequestTimeout": 300,
+  "NoColor": false,
+  "ProcessTimeoutSec": 7200,
+  "RetryMax": 0,
+  "RetryWaitMax": 64,
+  "RetryWaitMin": 1,
+  "StatePollingInterval": 0,
+  "StatePollingTimeout": 0,
+  "TraceMode": "HTTP",
+  "Zone": "is1a",
+  "Zones": ["is1a", "is1b", "tk1a", "tk1b", "tk1v"],
+  "Endpoints": {
+    "iam": "http://localhost:18087"
+  }
+}
