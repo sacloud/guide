@@ -8,30 +8,33 @@
 
 ## ディレクトリ・パス構造
 
-プロファイルは `$HOME/.sakura/<profila-name>/config.yaml` に配置されます。例えば `skr config create example` で生成した場合は `$HOME/.sakura/example/config.yaml` となります。プロファイルのデフォルト名は `default` です。
+プロファイルは `$HOME/.config/sakura/<profila-name>/config.yaml` に配置されます。例えば `skr config create example` で生成した場合は `$HOME/.config/sakura/example/config.yaml` となります。プロファイルのデフォルト名は `default` です。
 
 ### 現在のプロファイルの指定方法
 
-複数プロファイルが存在している場合、 `.sakura/current` ファイルで現在のプロファイル名を指定します。例えば現在指しているプロファイルが `example` の場合には以下のようになります。
+複数プロファイルが存在している場合、 `current` ファイルで現在のプロファイル名を指定します。例えば現在指しているプロファイルが `example` の場合には以下のようになります。
 
 ```
-% cat .sakura/current
+% cat ~/config/sakura/current
 example
 ```
 
+末尾の空白や改行は無視されます。
+
 ### 保存先ディレクトリ
 
-プロファイルの保存先はデフォルトではホームディレクトリとなりますが、この値は環境変数経由で変更可能です。 優先度としては以下のようになります。
+プロファイルの保存先はデフォルトではホームディレクトリとなりますが、この値は環境変数経由で変更可能です。 優先度と実例は以下のようになります。
 
-1. `SAKURA_PROFILE_DIR` 環境変数
-2. `XDG_CONFIG_HOME` 環境変数
-3. ホームディレクトリ
+1. `SAKURA_PROFILE_DIR` 環境変数 : SAKURA_PROFILE_DIR/default
+2. `XDG_CONFIG_HOME` 環境変数 : XDG_CONFIG_HOME/sakura/default
+3. ホームディレクトリ/.config/sakura : ~/.config/sakura/default
+4. ~/.usacloud (v0で利用されていた。互換性のためGo SDKではサポート) : ~/.usacloud/default
 
-`SAKURA_PROFILE_DIR=/path/to/SAKURA` のような環境変数が設定されていた場合、プロファイルの保存先は `/path/to/SAKURA/.sakura/default/config.yaml` となります。
+`SAKURA_PROFILE_DIR=/path/to/SAKURA` のような環境変数が設定されていた場合、プロファイルの保存先は `/path/to/SAKURA/default/config.yaml` となります。
 
 ### 互換性
 
-プロファイルの保存先のパスは `.sakura` となりますが、v0環境で利用している `.usacloud` もサポートします。
+プロファイルv1の標準的な保存先で使われるディレクトリのパスは `sakura` です。terraform/CLI/Go SDKは後方互換性のため、プロファイルv0で利用されていた `usacloud` ディレクトリからの読み込みもサポートします。
 
 ## プロファイルの内容
 
@@ -49,7 +52,7 @@ endpoints:
 cli:
   argument_match_mode: exact
   # other parameters
-go:
+sacloud-sdk-go:
   api_root_url: https://secure.sakura.ad.jp/cloud/zone
   # other parameters
 ```
@@ -60,7 +63,7 @@ go:
 
 #### credentialsセクション
 
-さくらのクラウドで扱う認証情報を設定する。アクセスキーベースとサービスプリンシパルキーベースの2つをサポートし、どちらも指定されている場合にはサービスプリンシパルキーの方を優先します。
+さくらのクラウドで扱う認証情報を設定する。APIキーベースとサービスプリンシパルキーベースの2つをサポートし、どちらも指定されている場合にはサービスプリンシパルキーの方を優先します。
 
 ```yaml
 credentials:
@@ -84,6 +87,11 @@ credentials:
 | private_key_path | PrivateKeyPEMPath | string | サービスプリンシパル秘密鍵(PEM)のファイルパス |
 
 `private_key`/`private_key_path`の両方が指定されていた場合には`private_key`が優先されます。
+
+APIキーやサービスプリンシパルキーに関しては公式のマニュアルを参照してください。
+
+APIキー: https://manual.sakura.ad.jp/cloud/api/apikey.html
+サービスプリンシパルキー: https://manual.sakura.ad.jp/cloud/controlpanel/service-principal.html
 
 #### endpointsセクション
 
@@ -142,13 +150,13 @@ cli:
 | no_color | NoColor | bool | ANSIエスケープシーケンスによる色つけを無効化 |
 | process_timeout_sec | ProcessTimeoutSec | int | コマンド全体の実行タイムアウトまでの秒数 |
 
-- Go
+- sacloud-sdk-go
 
-さくらのツール群はGoで書かれており、扱えるパラメータは [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go) に依存しているため、そちらのドキュメントを参考にしてください。
+さくらのツール群はGo SDKで書かれており、扱えるパラメータは [sacloud-sdk-go](https://github.com/sacloud/sacloud-sdk-go) に依存しているため、そちらのドキュメントを参考にしてください。
 
-- Java / .NET / etc...
+- Java (sacloud-sdk-java) / .NET (sacloud-sdk-dotnet) / etc...
 
-他の言語で実装されているSDK等に対しては、Goと同じくそれぞれのセクションにパラメータを書きます。どのようなパラメータがサポートされているかは各SDKを参照してください。
+他の言語で実装されているSDK等に対しては、Go SDKと同じくそれぞれの言語のSDKセクションにパラメータを書きます。これらのセクション名に関しては他と被らないのであれば縛りはありませんが、ライブラリ名やプロジェクト名のようなわかりやすいセクション名が推奨されます。どのようなパラメータがサポートされているかは各実装を参照してください。
 
 ### パラメータの省略と優先度
 
